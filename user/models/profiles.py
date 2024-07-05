@@ -12,7 +12,6 @@ class Profile(models.Model):
         User, on_delete=models.CASCADE
     )  # Foreign key relation with User model
     name = models.CharField(max_length=250)  # First name of the user
-    phone_number = models.CharField(max_length=11)
     age = models.PositiveIntegerField(default=0)
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
     create_date = models.DateTimeField(
@@ -48,3 +47,7 @@ def save_profile(sender, instance, created, **kwargs):
 def save_profile(sender, instance, created, **kwargs):
     if created:
         Wallet.objects.create(user=instance)
+
+
+
+

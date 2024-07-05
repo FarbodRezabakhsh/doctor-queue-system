@@ -1,7 +1,8 @@
 from django import forms
 from django.contrib.auth import authenticate
+from django.contrib.auth.forms import UserCreationForm
 
-from .models import User
+from .models import User, Profile
 from django.core.exceptions import ValidationError
 
 
@@ -31,7 +32,8 @@ class UserLoginForm(forms.Form):
 
 
 # User Registration Form
-class UserCreationForm(forms.ModelForm):
+class CustomUserForm(UserCreationForm):
+    email = forms.EmailField()
     password1 = forms.CharField(
         label="password", widget=forms.PasswordInput
     )  # Password field for user registration
@@ -41,7 +43,7 @@ class UserCreationForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ("email",)  # Email field for user registration
+        fields = ("email", "phone_number")
 
     # Method to validate password confirmation
     def clean_password2(self):
@@ -67,3 +69,5 @@ class UserCreationForm(forms.ModelForm):
         if commit:
             user.save()
         return user
+
+

@@ -8,6 +8,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(
         max_length=255, unique=True
     )  # Email field for user authentication
+    phone_number = models.CharField(max_length=11)
     is_staff = models.BooleanField(
         default=False
     )  # Boolean field to indicate if user is staff or not
@@ -16,9 +17,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     )  # Boolean field to indicate if user is active or not
     is_verified = models.BooleanField(default=False)
 
-    REQUIRED_FIELDS = []  # Required fields for user registration
+    REQUIRED_FIELDS = ['phone_number',]  # Required fields for user registration
     USERNAME_FIELD = "email"  # Field to use for user authentication
-
+    PHONE_NUMBER_FIELD = "phone_number"  # Field to use for user authentication using phone number.
     create_date = models.DateTimeField(
         auto_now_add=True
     )  # Date and time when user was created
