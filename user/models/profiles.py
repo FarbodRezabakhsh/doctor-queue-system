@@ -33,3 +33,11 @@ def save_profile(sender, instance, created, **kwargs):
         Profile.objects.create(user=instance)
 
 
+class Wallet(models.Model):
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE
+    )  # Foreign key relation with User model
+    balance = models.PositiveBigIntegerField(default=0)
+
+    def __str__(self):
+        return f'Wallet of {self.user} (Balance: {self.balance})'

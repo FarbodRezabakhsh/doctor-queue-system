@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
-from user.models import User, Profile
+from user.models import User, Profile, Wallet
 
 
 class CustomUserAdmin(BaseUserAdmin):
@@ -56,5 +56,16 @@ class ProfileAdmin(admin.ModelAdmin):
     # Specify the fields to be displayed on the change list
     def get_list_display(self, request):
         return ["user", "name", "phone_number", "age", "gender"]
+
+
+@admin.register(Wallet)
+class WalletAdmin(admin.ModelAdmin):
+    # Specify the fields to be displayed on the change form
+    def get_fields(self, request, obj=None):
+        return ["user", "balance"]
+
+    # Specify the fields to be displayed on the change list
+    def get_list_display(self, request):
+        return ["user", "balance"]
 
 
