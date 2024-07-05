@@ -19,7 +19,6 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     REQUIRED_FIELDS = ['phone_number',]  # Required fields for user registration
     USERNAME_FIELD = "email"  # Field to use for user authentication
-    PHONE_NUMBER_FIELD = "phone_number"  # Field to use for user authentication using phone number.
     create_date = models.DateTimeField(
         auto_now_add=True
     )  # Date and time when user was created

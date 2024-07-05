@@ -5,9 +5,6 @@ from django.views.generic import CreateView
 
 from .forms import UserLoginForm, CustomUserForm
 # Create your views here.
-from django.contrib.auth import get_user_model
-
-User = get_user_model()
 
 
 class CustomLoginView(LoginView):
@@ -18,6 +15,9 @@ class CustomLoginView(LoginView):
 
     def get_success_url(self):
         return reverse_lazy("doctor:home")
+
+
+
 
 
 class CustomRegisterView(CreateView):

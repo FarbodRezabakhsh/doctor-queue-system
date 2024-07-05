@@ -16,8 +16,15 @@ class UserLoginForm(forms.Form):
     def get_user(self):
         email = self.cleaned_data.get('email')
         password = self.cleaned_data.get('password')
-
-        if email and password:
+        if '@' in email and email and password:
+            user = authenticate(email=email, password=password)
+            return user
+        elif email and password:
+            try:
+                user_id = User.objects.get(phone_number=email)
+            except User.DoesNotExist:
+                return None
+            email = user_id.email
             user = authenticate(email=email, password=password)
             return user
         return None
@@ -26,9 +33,14 @@ class UserLoginForm(forms.Form):
         self.request = kwargs.pop('request', None)
         super(UserLoginForm, self).__init__(*args, **kwargs)
 
-    class Meta:
-        model = User
-        fields = ("email", "password")
+    def clean(self):
+        cleand_data = super().clean()
+        user = self.get_user()
+        if user is None:
+            raise forms.ValidationError("User or password is wrong")
+        elif not user.is_active:
+            raise forms.ValidationError("user is not active")
+        return cleand_data
 
 
 # User Registration Form
@@ -61,6 +73,13 @@ class CustomUserForm(UserCreationForm):
         if user:
             raise ValidationError("This email already exists")
         return email
+    
+    def clean_phone_number(self):
+        phone_number = self.cleaned_data["phone_number"]
+        user = User.objects.filter(phone_number=phone_number).exists()
+        if user:
+            raise ValidationError("This phone number already exists")
+        return phone_number
 
     # Method to save user registration form
     def save(self, commit=True):
