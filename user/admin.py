@@ -53,6 +53,8 @@ class ProfileAdmin(admin.ModelAdmin):
     def get_fields(self, request, obj=None):
         return ["name", "user", "phone_number", "age", "gender"]
 
+    readonly_fields = ["user", ]
+
     # Specify the fields to be displayed on the change list
     def get_list_display(self, request):
         return ["user", "name", "phone_number", "age", "gender"]
@@ -63,6 +65,7 @@ class WalletAdmin(admin.ModelAdmin):
     # Specify the fields to be displayed on the change form
     def get_fields(self, request, obj=None):
         return ["user", "balance"]
+    readonly_fields = ["user", ]
 
     # Specify the fields to be displayed on the change list
     def get_list_display(self, request):

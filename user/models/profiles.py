@@ -26,13 +26,6 @@ class Profile(models.Model):
         return self.user.email
 
 
-# Signal to create profile when user is created
-@receiver(post_save, sender=User)
-def save_profile(sender, instance, created, **kwargs):
-    if created:
-        Profile.objects.create(user=instance)
-
-
 class Wallet(models.Model):
     user = models.ForeignKey(
         User, on_delete=models.CASCADE
@@ -41,3 +34,17 @@ class Wallet(models.Model):
 
     def __str__(self):
         return f'Wallet of {self.user} (Balance: {self.balance})'
+
+
+# Signal to create profile when user is created
+@receiver(post_save, sender=User)
+def save_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
+
+
+# Signal to create wallet when user is created
+@receiver(post_save, sender=User)
+def save_profile(sender, instance, created, **kwargs):
+    if created:
+        Wallet.objects.create(user=instance)
