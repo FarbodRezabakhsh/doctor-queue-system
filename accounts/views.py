@@ -2,10 +2,11 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, UpdateView
+from django.views import View
+from django.views.generic import CreateView, UpdateView, TemplateView, ListView, DetailView
 
 from .forms import UserLoginForm, CustomUserForm
-from accounts.models import User, Profile
+from accounts.models import User, Profile, Wallet
 # Create your views here.
 
 
@@ -24,7 +25,6 @@ class CustomRegisterView(CreateView):
     form_class = CustomUserForm
 
     def get_success_url(self):
-        print('hi')
         return reverse_lazy('accounts:login')
 
     def get(self, *args, **kwargs):
@@ -53,4 +53,23 @@ class ProfileEditView(LoginRequiredMixin, UpdateView):
         context = super().get_context_data(**kwargs)
         user_email = User.objects.get(email=self.request.user)
         context['username'] = user_email
+        return context
+
+
+class ChargeWalletView(LoginRequiredMixin, CreateView):
+    template_name = 'accounts/charge_wallet.html'
+    model = Wallet
+    fields = ['balance', ]
+    success_url = reverse_lazy("doctor:home")
+
+
+class ShowWalletView(LoginRequiredMixin, DetailView):
+    template_name = 'accounts/show_wallet.html'
+    model = Profile
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user = self.request.user
+        user_wallet = Wallet.objects.get(user=user)
+        context["balance"] = user_wallet.balance
         return context
