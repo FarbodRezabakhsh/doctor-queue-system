@@ -1,13 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>home</title>
+    <title>Doctors Home</title>
 </head>
 <body>
-<h5>
-
-    home page
-</h5>
+    <h1>All Doctors</h1>
+    <form method="get">
+        <input type="text" name="resident" placeholder="Search by resident">
+        <button type="submit">Search</button>
+    </form>
+    <ul>
+        {% for doctor in doctors %}
+            <li>{{ doctor.name }} - {{ doctor.resident }} </li>
+        {% endfor %}
+    </ul>
 </body>
 </html>

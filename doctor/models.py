@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from accounts.models.users import *
 
 # Create your models this.
 
@@ -16,17 +17,18 @@ class Appointment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     visit_time = models.DateTimeField()
     location_text = models.CharField(max_length=250)
-    visit_prise = models.DecimalField(max_digits=10)
+    visit_price = models.DecimalField(max_digits=10, decimal_places=2)
 
     def __str__(self):
         return f'{self.user} will be visited at {self.visit_time} '
+
 class WorkTable(models.Model):
     doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
     time_table = models.JSONField()
     visit_price = models.DecimalField(max_digits=10, decimal_places=2)
 
-class patient_info(models.Model):
-    user = models.ManyToManyField(User, on_delete=models.CASCADE)
+class PatientInfo(models.Model):
+    user = models.OneToOneField(User,on_delete=models.CASCADE)
     weight = models.DecimalField(max_digits=5, decimal_places=2)
     height = models.DecimalField(max_digits=5, decimal_places=2)
     medical_history = models.TextField()
