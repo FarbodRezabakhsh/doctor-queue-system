@@ -7,12 +7,12 @@ GENDER_CHOICES = (('M', 'Male'), ('F', 'Female'), ('O', 'Other'), ('N', 'Null'))
 
 class Profile(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    name = models.CharField(max_length=250)
+    name = models.CharField(max_length=250, null=True)
     age = models.PositiveIntegerField(null=True)
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES, default='N')
     create_date = models.DateTimeField(auto_now_add=True)
     update_date = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=False)
+
 
     def __str__(self):
         return self.user.email
