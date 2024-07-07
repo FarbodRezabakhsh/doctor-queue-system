@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth import authenticate
 from django.contrib.auth.forms import UserCreationForm
 
-from .models import User, Profile
+from .models import User, Profile, Wallet
 from django.core.exceptions import ValidationError
 
 
@@ -90,3 +90,7 @@ class CustomUserForm(UserCreationForm):
         return user
 
 
+class ChargeFormClass(forms.ModelForm):
+    class Meta:
+        model = Wallet
+        fields = ("balance", )

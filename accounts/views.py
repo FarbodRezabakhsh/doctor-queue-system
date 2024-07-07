@@ -5,7 +5,7 @@ from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import CreateView, UpdateView, TemplateView, ListView, DetailView
 
-from .forms import UserLoginForm, CustomUserForm
+from .forms import UserLoginForm, CustomUserForm, ChargeFormClass
 from accounts.models import User, Profile, Wallet
 # Create your views here.
 
@@ -55,12 +55,20 @@ class ProfileEditView(LoginRequiredMixin, UpdateView):
         context['username'] = user_email
         return context
 
+from django.views.generic import FormView
 
-class ChargeWalletView(LoginRequiredMixin, CreateView):
+class ChargeWalletView(LoginRequiredMixin, FormView):
     template_name = 'accounts/charge_wallet.html'
-    model = Wallet
-    fields = ['balance', ]
+    form_class = ChargeFormClass
     success_url = reverse_lazy("doctor:home")
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        user = Wallet.objects.get(user=self.request.user)
+        new_balance = user.balance + form.cleaned_data['balance']
+        user.balance = new_balance
+        user.save()
+        return super().form_valid(form)
 
 
 class ShowWalletView(LoginRequiredMixin, DetailView):
