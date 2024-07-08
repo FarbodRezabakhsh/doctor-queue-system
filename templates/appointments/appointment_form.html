@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h2>Book an Appointment with {{ doctor.name }}</h2>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="fee">Select Fee</label>
+                <select name="fee" id="fee" class="form-control">
+                    {% for key, value in doctor.fees.items %}
+                        <option value="{{ value }}">{{ key }} - {{ value }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="date">Select Date</label>
+                <input type="date" name="date" id="date" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="time">Select Time</label>
+                <input type="time" name="time" id="time" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Book Appointment</button>
+        </form>
+        {% if error_message %}
+            <div class="alert alert-danger mt-3">{{ error_message }}</div>
+        {% endif %}
+    </div>
+{% endblock %}

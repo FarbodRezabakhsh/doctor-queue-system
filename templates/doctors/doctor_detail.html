@@ -2,6 +2,6 @@
 {% block content %}
     <h2>{{ doctor.name }}</h2>
     <p>Specialization: {{ doctor.specialization }}</p>
-    <p>Fee: {{ doctor.fee }}</p>
+    <p>Fee: {{ doctor.fees }}</p>
     <a href="{% url 'book_appointment' doctor.id %}">Book Appointment</a>
 {% endblock %}
