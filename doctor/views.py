@@ -12,6 +12,7 @@ from django.contrib.auth import authenticate, login, logout
 from .models import Doctor
 from django.contrib.auth import login, logout
 from .forms import UserRegistrationForm
+from django.db.models import Q
 
 # Create your views here.
 
@@ -20,6 +21,15 @@ class DoctorHomeView(ListView):
     model = Doctor
     template_name = 'doctor/home.html'
     context_object_name = 'doctors'
+    
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        query = self.request.GET.get('q')
+        if query:
+            queryset = queryset.filter(
+                Q(name__icontains=query) | Q(resident__icontains=query)
+            )
+        return queryset
 
 class RegisterDoctorView(View):
     def get(self,request):
@@ -32,6 +42,7 @@ class RegisterDoctorView(View):
             form.save()
             return redirect('doctor:doctor_home')
         return render(request,'doctor/register.html',{'form':form})
+
 
 class LoginDoctorView(View):
     def get(self, request):

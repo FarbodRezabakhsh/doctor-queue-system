@@ -12,9 +12,10 @@
         <a href="{% url 'doctor:doctor_register' %}">Sign Up</a>
         <a href="{% url 'doctor:doctor_login' %}">Login</a>
     {% endif %}
+    <a href="{% url 'doctor:doctor_home' %}">Home</a>
 
-    <form method="get">
-        <input type="text" name="resident" placeholder="Search by resident">
+    <form method="get" action="{% url 'doctor:doctor_home' %}">
+        <input type="text" name="q" placeholder="Search by resident or name" value="{{ request.GET.q }}">
         <button type="submit">Search</button>
     </form>
 
