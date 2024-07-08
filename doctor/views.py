@@ -30,7 +30,7 @@ class RegisterDoctorView(View):
         form = UserRegistrationForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('doctor:doctor_login')
+            return redirect('doctor:doctor_home')
         return render(request,'doctor/register.html',{'form':form})
 
 class LoginDoctorView(View):
