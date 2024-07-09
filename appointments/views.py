@@ -11,11 +11,19 @@ def book_appointment(request, doctor_id):
 
     if request.method == 'POST':
         # Process the booking
-        selected_fee = request.POST.get('fee')
+        selected_fee_key = request.POST.get('fee')
         selected_date = request.POST.get('date')
         selected_time = request.POST.get('time')
 
-        if selected_fee not in doctor.fees.values():
+        # Debugging prints
+        print(f"Selected Fee Key: {selected_fee_key}")
+        print(f"Selected Date: {selected_date}")
+        print(f"Selected Time: {selected_time}")
+
+        # Get the fee value based on the key
+        selected_fee = doctor.fees.get(selected_fee_key)
+
+        if not selected_fee:
             return render(request, 'appointments/appointment_form.html', {
                 'doctor': doctor,
                 'error_message': 'Invalid fee selected.',

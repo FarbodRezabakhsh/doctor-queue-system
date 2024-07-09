@@ -2,6 +2,9 @@
 {% block content %}
     <h2>{{ doctor.name }}</h2>
     <p>Specialization: {{ doctor.specialization }}</p>
+    <p>Day of Week: {{ doctor.day_of_week }}</p>
+    <p> Start Time: {{ doctor.start_time }}</p>
+    <p> End Time: {{ doctor.end_time }}</p>
     <p>Fee: {{ doctor.fees }}</p>
     <a href="{% url 'book_appointment' doctor.id %}">Book Appointment</a>
 {% endblock %}

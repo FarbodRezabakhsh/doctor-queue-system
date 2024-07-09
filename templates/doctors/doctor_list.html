@@ -3,7 +3,7 @@
     <h2>Doctors</h2>
     <ul>
         {% for doctor in doctors %}
-            <li><a href="{% url 'doctor_detail' doctor.id %}">{{ doctor.name }} - {{ doctor.specialization }} - {{ doctors_doctor.fees  }}</a></li>
+            <li><a href="{% url 'doctor_detail' doctor.id %}">{{ doctor.name }} - {{ doctor.specialization }} - fees:{{ doctor.fees  }}, time:{{ doctor.day_of_week }}</a></li>
         {% endfor %}
     </ul>
 {% endblock %}

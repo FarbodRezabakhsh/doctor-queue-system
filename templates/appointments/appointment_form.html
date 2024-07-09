@@ -9,7 +9,7 @@
                 <label for="fee">Select Fee</label>
                 <select name="fee" id="fee" class="form-control">
                     {% for key, value in doctor.fees.items %}
-                        <option value="{{ value }}">{{ key }} - {{ value }}</option>
+                        <option value="{{ key }}">{{ key }} - {{ value }}</option>
                     {% endfor %}
                 </select>
             </div>

@@ -7,7 +7,7 @@ from datetime import time
 class Appointment(models.Model):
     doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
     patient = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    date = models.DateField(default='sunday')
+    date = models.DateField(default='07/09/2024')
     time = models.TimeField(default=time(10, 0))
     fee = models.DecimalField(max_digits=10, decimal_places=2)
 
