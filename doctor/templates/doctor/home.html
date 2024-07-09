@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<style> .button { display: inline-block; padding: 10px 20px; background-color: #008CBA; color: white; text-align: center; text-decoration: none; border-radius: 5px; } .button:hover { background-color: #005F6B; } </style>
+<head>
+    <meta charset="UTF-8">
+    <title>home</title>
+</head>
+<body>
+<h5>
+ <a href="{% url 'accounts:logout' %}" class="button">Logout</a>
+    <a href="{% url 'accounts:profile' request.user.id %}" class="button">Profile</a>
+    <a href="{% url 'accounts:show_wallet' request.user.id %}" class="button">Show Wallet</a>
+
+
+    home page
+
+</h5>
+</body>
+</html>
