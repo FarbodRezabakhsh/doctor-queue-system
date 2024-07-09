@@ -13,6 +13,7 @@ from .models import Doctor
 from django.contrib.auth import login, logout
 from .forms import UserRegistrationForm
 from django.db.models import Q
+from django.shortcuts import get_object_or_404
 
 # Create your views here.
 
@@ -21,13 +22,13 @@ class DoctorHomeView(ListView):
     model = Doctor
     template_name = 'doctor/home.html'
     context_object_name = 'doctors'
-    
+
     def get_queryset(self):
         queryset = super().get_queryset()
         query = self.request.GET.get('q')
         if query:
             queryset = queryset.filter(
-                Q(name__icontains=query) | Q(resident__icontains=query)
+                Q(name__contains=query) | Q(resident__contains=query)
             )
         return queryset
 
@@ -64,3 +65,26 @@ class LogoutDoctorView(View):
     def get(self, request):
         logout(request)
         return redirect('doctor:doctor_home')
+
+
+class DoctorDetailView(View):
+    def get(self, request,id):
+        doctor = get_object_or_404(Doctor,pk=id)
+        return render(request,'doctor/doctor_detail.html',{'doctor':doctor})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

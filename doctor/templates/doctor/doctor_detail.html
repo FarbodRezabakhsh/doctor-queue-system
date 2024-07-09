@@ -1,0 +1,18 @@
+<!-- templates/doctor/doctor_detail.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Doctor Detail</title>
+</head>
+<body>
+    <h1>{{ doctor.name }}</h1>
+    <a href="{% url 'doctor:doctor_home' %}">
+    <button>Home page</button>
+    </a>
+    <p>Resident: {{ doctor.resident }}</p>
+    <p>About Doctor: {{ doctor.info_text }}</p>
+    <p>Status: {{ doctor.is_active|yesno:"Active,Inactive" }}</p>
+</body>
+</html>
