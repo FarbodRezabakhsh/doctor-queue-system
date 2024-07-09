@@ -5,5 +5,5 @@ app_name = "doctor"
 
 
 urlpatterns = [
-    path("", HomeView.as_view(), name="home"),
+
 ]

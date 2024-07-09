@@ -1,0 +1,42 @@
+{% extends 'base.html'%}
+{% load static %}
+{% block title %}Profile{% endblock %}
+{% block content%}
+
+	<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100">
+				<form class="login100-form validate-form" method="post" action=" {% url 'accounts:charge_wallet' request.user.id %}">
+					 {% csrf_token %}
+					<span class="login100-form-title">
+						Change Wallet
+					</span>
+						<label >Charge Wallet :</label>
+                                <input type="number" class="form-control" name="balance"><br><br>
+				<div class="container-login100-form-btn">
+						<a class="login100-form-btn">
+						  <button>
+							Charge
+						  </button>
+						</a>
+						<div class="container-login100-form-btn">
+						<a href="{% url 'doctor:home' %}" class="login100-form-btn">
+						  <button>
+							Home
+						  </button>
+						</a>
+
+						{% if form.errors %}
+					<div class="alert alert-danger">
+						{{ form.errors }}
+						</div>
+					{% endif %}
+					</div>
+
+
+				</form>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+

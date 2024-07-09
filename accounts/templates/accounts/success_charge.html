@@ -1,0 +1,36 @@
+{% extends 'base.html'%}
+{% load static %}
+{% block title %}Profile{% endblock %}
+{% block content%}
+
+	<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100">
+
+					<span class="login100-form-title">
+						Charge Wallet with Success
+					</span>
+						{{ balance }}
+					<div class="container-login100-form-btn">
+
+						<div class="container-login100-form-btn">
+						<a href="{% url 'doctor:home' %}" class="login100-form-btn">
+						  <button>
+							Home
+						  </button>
+						</a>
+
+						{% if form.errors %}
+    <div class="alert alert-danger">
+        {{ form.errors }}
+    </div>
+{% endif %}
+					</div>
+
+
+
+			</div>
+		</div>
+	</div>
+{% endblock %}
+

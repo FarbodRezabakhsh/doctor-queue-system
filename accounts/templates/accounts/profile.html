@@ -1,0 +1,45 @@
+{% extends 'base.html'%}
+{% load static %}
+{% block title %}Profile{% endblock %}
+{% block content%}
+
+	<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100">
+				<form class="login100-form validate-form" method="post" action=" {% url 'accounts:profile' request.user.id %}">
+					 {% csrf_token %}
+					<span class="login100-form-title">
+						Member Change Profile
+					</span>
+						 <label for="Email">Email:</label>
+                                <input type="email" class="form-control" value="{{ username }}" name="email"><br><br>
+						<label for="Phone Number">Email:</label>
+                                <input type="tel" class="form-control" value="{{ username.phone_number }}" name="phone_number"><br><br>
+					<label for="name">Username:</label>
+                                <input type="text" class="form-control" value="{{ profile.name }}" name="name"><br><br>
+						<label for="age">Age:</label>
+                                <input type="number" class="form-control" value="{{ profile.age }}" name="age"><br><br>
+						<label for="gender">Gender:</label>
+						<select class="form-control" name="gender">
+							<option value="M"{% if profile.gender == "M" %} selected {% endif %}>Male</option>
+							<option value="F"{% if profile.gender == "F" %} selected {% endif %}>Female</option>
+							<option value="O"{% if profile.gender == "O" %} selected {% endif %}>Other</option>
+						</select>
+					<div class="container-login100-form-btn">
+						<button class="login100-form-btn">
+							Change
+						</button>
+		{% if messages %}
+    {% for message in messages %}
+      <div class="alert {% if message.tags %} alert-{{ message.tags }}{% endif %}">{{ message|safe }}</div>
+    {% endfor %}
+  {% endif %}
+					</div>
+
+
+				</form>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
