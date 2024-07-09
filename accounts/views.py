@@ -1,12 +1,18 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
 from django.shortcuts import render, redirect, get_object_or_404
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views import View
+from django.contrib import messages
+from django.db.utils import IntegrityError
 from django.views.generic import CreateView, UpdateView, TemplateView, ListView, DetailView
+from django.views.generic import FormView
+from django.core.exceptions import ValidationError
 
 from .forms import UserLoginForm, CustomUserForm, ChargeFormClass
 from accounts.models import User, Profile, Wallet
+
+
 # Create your views here.
 
 
@@ -41,13 +47,26 @@ class ProfileEditView(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy("doctor:home")
 
     def form_valid(self, form):
-        value = self.request.POST['phone_number']
-        user_email = self.request.POST['email']
+        value = self.request.POST.get('phone_number')
+        user_email = self.request.POST.get('email')
         user = get_object_or_404(User, email=self.request.user)
-        user.phone_number = value
-        user.email = user_email
-        user.save()
+
+        if User.objects.exclude(id=user.id).filter(email=user_email).exists() or User.objects.exclude(
+                id=user.id).filter(phone_number=value).exists():
+            messages.error(self.request, 'Email or phone number already exists. Please use a different email address.',
+                           'error')
+            return redirect(reverse('accounts:profile', kwargs={'pk': self.request.user.id}))
+
+        try:
+            user.phone_number = value
+            user.email = user_email
+            user.save()
+        except Exception as e:
+            messages.error(self.request, f'An error occurred: {e}', 'error')
+            return redirect(reverse('accounts:profile', kwargs={'pk': self.request.user.id}))
+
         return super(ProfileEditView, self).form_valid(form)
+
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -55,12 +74,11 @@ class ProfileEditView(LoginRequiredMixin, UpdateView):
         context['username'] = user_email
         return context
 
-from django.views.generic import FormView
 
 class ChargeWalletView(LoginRequiredMixin, FormView):
     template_name = 'accounts/charge_wallet.html'
     form_class = ChargeFormClass
-    success_url = reverse_lazy("doctor:home")
+    success_url = '/accounts/success_wallet/'
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -81,3 +99,12 @@ class ShowWalletView(LoginRequiredMixin, DetailView):
         user_wallet = Wallet.objects.get(user=user)
         context["balance"] = user_wallet.balance
         return context
+
+
+class SuccessChargeView(LoginRequiredMixin, View):
+    template_name = 'accounts/success_charge.html'
+
+    def get(self, request):
+        user_wallet = Wallet.objects.get(user=request.user)
+        return render(request, self.template_name, context={'balance': user_wallet.balance})
+
