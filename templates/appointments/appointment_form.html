@@ -6,14 +6,6 @@
         <form method="post">
             {% csrf_token %}
             {{ form.as_p }}
-            <div class="form-group">
-                <label>Fee</label>
-                <input type="text" class="form-control" value="{{ doctor.fee }}" readonly>
-            </div>
-            <div class="form-group">
-                <label>Location</label>
-                <input type="text" class="form-control" value="{{ doctor.location }}" readonly>
-            </div>
             <button type="submit" class="btn btn-primary">Book Appointment</button>
         </form>
         {% if form.errors %}
