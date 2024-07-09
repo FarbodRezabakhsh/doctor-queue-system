@@ -1,8 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from doctors.models import Doctor
-from .models import Appointment
-from datetime import datetime
+from appointments.forms import AppointmentForm
+from django.core.exceptions import ValidationError
 
 
 @login_required
@@ -10,37 +10,28 @@ def book_appointment(request, doctor_id):
     doctor = get_object_or_404(Doctor, pk=doctor_id)
 
     if request.method == 'POST':
-        # Process the booking
-        selected_fee_key = request.POST.get('fee')
-        selected_date = request.POST.get('date')
-        selected_time = request.POST.get('time')
+        form = AppointmentForm(request.POST)
 
-        # Debugging prints
-        print(f"Selected Fee Key: {selected_fee_key}")
-        print(f"Selected Date: {selected_date}")
-        print(f"Selected Time: {selected_time}")
+        if form.is_valid():
+            appointment = form.save(commit=False)
+            appointment.doctor = doctor  # مقداردهی به فیلد doctor
+            appointment.patient = request.user
+            appointment.fee = doctor.fee
+            appointment.location = doctor.location
 
-        # Get the fee value based on the key
-        selected_fee = doctor.fees.get(selected_fee_key)
+            try:
+                appointment.clean()  # فراخوانی متد clean بعد از مقداردهی doctor
+                appointment.save()
+                return redirect('appointment_success')
+            except ValidationError as e:
+                form.add_error(None, e)
+        else:
+            print(form.errors)
 
-        if not selected_fee:
-            return render(request, 'appointments/appointment_form.html', {
-                'doctor': doctor,
-                'error_message': 'Invalid fee selected.',
-            })
+    else:
+        form = AppointmentForm()
 
-        # Create the appointment
-        appointment = Appointment.objects.create(
-            doctor=doctor,
-            patient=request.user,
-            date=datetime.strptime(selected_date, '%Y-%m-%d').date(),
-            time=datetime.strptime(selected_time, '%H:%M').time(),
-            fee=selected_fee
-        )
-
-        return redirect('appointment_success')
-
-    return render(request, 'appointments/appointment_form.html', {'doctor': doctor})
+    return render(request, 'appointments/appointment_form.html', {'doctor': doctor, 'form': form})
 
 
 def appointment_success(request):

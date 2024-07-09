@@ -5,26 +5,28 @@
         <h2>Book an Appointment with {{ doctor.name }}</h2>
         <form method="post">
             {% csrf_token %}
+            {{ form.as_p }}
             <div class="form-group">
-                <label for="fee">Select Fee</label>
-                <select name="fee" id="fee" class="form-control">
-                    {% for key, value in doctor.fees.items %}
-                        <option value="{{ key }}">{{ key }} - {{ value }}</option>
-                    {% endfor %}
-                </select>
+                <label>Fee</label>
+                <input type="text" class="form-control" value="{{ doctor.fee }}" readonly>
             </div>
             <div class="form-group">
-                <label for="date">Select Date</label>
-                <input type="date" name="date" id="date" class="form-control" required>
-            </div>
-            <div class="form-group">
-                <label for="time">Select Time</label>
-                <input type="time" name="time" id="time" class="form-control" required>
+                <label>Location</label>
+                <input type="text" class="form-control" value="{{ doctor.location }}" readonly>
             </div>
             <button type="submit" class="btn btn-primary">Book Appointment</button>
         </form>
-        {% if error_message %}
-            <div class="alert alert-danger mt-3">{{ error_message }}</div>
+        {% if form.errors %}
+            <div class="alert alert-danger mt-3">
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                {% endfor %}
+                {% for error in form.non_field_errors %}
+                    <p>{{ error }}</p>
+                {% endfor %}
+            </div>
         {% endif %}
     </div>
 {% endblock %}
