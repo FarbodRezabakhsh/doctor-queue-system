@@ -4,11 +4,6 @@ from .models import Doctor
 from .forms import SearchForm
 
 
-def doctor_list(request):
-    doctors = Doctor.objects.all()
-    return render(request, 'doctors/doctor_list.html', {'doctors': doctors})
-
-
 def doctor_detail(request, pk):
     doctor = Doctor.objects.get(pk=pk)
     return render(request, 'doctors/doctor_detail.html', {'doctor': doctor})
@@ -28,4 +23,5 @@ def doctor_list(request):
             )
 
     doctors = Doctor.objects.all()
-    return render(request, 'doctors/doctor_list.html', {'doctors': doctors, 'form': form, 'query': query, 'results': results})
+    return render(request, 'doctors/doctor_list.html',
+                  {'doctors': doctors, 'form': form, 'query': query, 'results': results})
