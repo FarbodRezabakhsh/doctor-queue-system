@@ -1,8 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
-    <h2>Profile</h2>
-    <p>Username: {{ user.username }}</p>
-    <p>Email: {{ user.email }}</p>
-    <p>Phone Number: {{ user.phone_number }}</p>
-    <p>Wallet Balance: {{ user.wallet_balance }}</p>
+    <div class="profile-container">
+        <h2 class="profile-heading">Profile</h2>
+        <p class="profile-info"><strong>Username:</strong> {{ user.username }}</p>
+        <p class="profile-info"><strong>Email:</strong> {{ user.email }}</p>
+        <p class="profile-info"><strong>Phone Number:</strong> {{ user.phone_number }}</p>
+        <p class="profile-info"><strong>Wallet Balance:</strong> {{ user.wallet_balance }}</p>
+    </div>
 {% endblock %}

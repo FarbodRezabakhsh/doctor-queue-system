@@ -44,18 +44,23 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',  # For Google OAuth2
-    'django_otp',  # For OTP
+    'django_otp',
+    'crispy_forms',
+    'crispy_bootstrap4'
 ]
 
 AUTH_USER_MODEL = 'users.CustomUser'
 
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
 # Email Backend Configuration
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.example.com'
+EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'shabanimehran@gmail.com'
 EMAIL_HOST_PASSWORD = 'xvyv kkev asch hoov'
+EMAIL_USE_SSL = False
 
 # Allauth Configuration
 SITE_ID = 1
@@ -162,4 +167,4 @@ STATICFILES_DIRS = [BASE_DIR / 'static/']
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = '/users/profile/'
-LOGOUT_REDIRECT_URL = 'users/logout/'
+LOGOUT_REDIRECT_URL = '/'

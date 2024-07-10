@@ -1,10 +1,12 @@
 {% extends "base.html" %}
 {% block content %}
-    <h2>{{ doctor.name }}</h2>
-    <p>Specialization: {{ doctor.specialization }}</p>
-    <p>Day of Week: {{ doctor.day_of_week }}</p>
-    <p> Start Time: {{ doctor.start_time }}</p>
-    <p> End Time: {{ doctor.end_time }}</p>
-    <p>Fee: {{ doctor.fees }}</p>
-    <a href="{% url 'book_appointment' doctor.id %}">Book Appointment</a>
+    <div class="doctor-detail-container">
+        <h2 class="doctor-name">{{ doctor.name }}</h2>
+        <p class="doctor-info"><strong>Specialization:</strong> {{ doctor.specialization }}</p>
+        <p class="doctor-info"><strong>Day of Week:</strong> {{ doctor.day_of_week }}</p>
+        <p class="doctor-info"><strong>Start Time:</strong> {{ doctor.start_time }}</p>
+        <p class="doctor-info"><strong>End Time:</strong> {{ doctor.end_time }}</p>
+        <p class="doctor-info"><strong>Fee:</strong> {{ doctor.fees }}</p>
+        <a class="btn btn-primary" href="{% url 'book_appointment' doctor.id %}">Book Appointment</a>
+    </div>
 {% endblock %}
