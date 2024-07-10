@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="{% static 'css/give_feedback.css' %}">
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+<nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm fun-navbar">
     <a class="navbar-brand" href="{% url 'home' %}">
         <span class="title-part-1">Online</span>
         <span class="title-part-2">Doctor</span>
@@ -47,7 +47,7 @@
 <div class="container mt-4">
     {% if messages %}
         {% for message in messages %}
-            <div class="alert alert-{{ message.tags }}" role="alert">
+            <div class="alert alert-{{ message.tags }} fun-alert" role="alert">
                 {{ message }}
             </div>
         {% endfor %}

@@ -73,10 +73,6 @@ Project Structure
     online_doctor_appointment_system/
     ├── appointments/
     │   ├── migrations/
-    │   ├── templates/
-    │   │   └── appointments/
-    │   │       ├── appointment_form.html
-    │   │       ├── appointment_success.html
     │   ├── __init__.py
     │   ├── admin.py
     │   ├── apps.py
@@ -84,11 +80,11 @@ Project Structure
     │   ├── tests.py
     │   ├── urls.py
     │   └── views.py
+    ├── css/
+    │   ├── style.css
+    │   └── layout.css
     ├── doctors/
     │   ├── migrations/
-    │   ├── templates/
-    │   │   └── doctors/
-    │   │       ├── doctor_detail.html
     │   ├── __init__.py
     │   ├── admin.py
     │   ├── apps.py
@@ -96,21 +92,8 @@ Project Structure
     │   ├── tests.py
     │   ├── urls.py
     │   └── views.py
-    ├── users/
+    ├── feedback/
     │   ├── migrations/
-    │   ├── templates/
-    │   │   └── registration/
-    │   │       ├── login.html
-    │   │       ├── signup.html
-    │   │       ├── logged_out.html
-    │   │       ├── logout_confirm.html
-    │   │       ├── password_reset_form.html
-    │   │       ├── password_reset_done.html
-    │   │       ├── password_reset_confirm.html
-    │   │       ├── password_reset_complete.html
-                ├── acc_active_email.html
-    │   │   └── users/
-    │   │       ├── profile.html
     │   ├── __init__.py
     │   ├── admin.py
     │   ├── apps.py
@@ -118,13 +101,34 @@ Project Structure
     │   ├── tests.py
     │   ├── urls.py
     │   └── views.py
+    ├── templates/
+    │   ├── appointments/
+    │   │   ├── appointment_form.html
+    │   │   ├── appointment_success.html
+    │   ├── doctors/
+    │   │   ├── doctor_detail.html
+    │   ├── feedback/
+    │   │   ├── feedback_form.html
+    │   ├── registration/
+    │   │   ├── login.html
+    │   │   ├── signup.html
+    │   │   ├── logged_out.html
+    │   │   ├── logout_confirm.html
+    │   │   ├── password_reset_form.html
+    │   │   ├── password_reset_done.html
+    │   │   ├── password_reset_confirm.html
+    │   │   ├── password_reset_complete.html
+    │   │   ├── acc_active_email.html
+    │   ├── users/
+    │   │   ├── profile.html
     ├── online_doctor_appointment_system/
     │   ├── __init__.py
     │   ├── settings.py
-    │   ├── urls.py
+    │   ├── urls.py 
     │   └── wsgi.py
     ├── manage.py
     └── README.md
+
 
 Dockerization
 To run the project using Docker:
