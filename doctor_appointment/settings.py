@@ -74,6 +74,11 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
+
+AUTHENTICATION_BACKENDS = [
+
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
 # OTP Configuration
 OTP_TOTP_ISSUER = 'OnlineDoctorAppointmentSystem'
 

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activate your account</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        .header {
+            text-align: center;
+            padding: 20px;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 8px 8px 0 0;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .content {
+            padding: 20px;
+            text-align: center;
+        }
+        .content p {
+            font-size: 18px;
+        }
+        .content a {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 18px;
+            color: white;
+            background-color: #4CAF50;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .footer {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 16px;
+            color: #777;
+        }
+        .footer p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>Welcome to Our Appointment System! 🌟</h1>
+    </div>
+    <div class="content">
+        <p>Hi {{ user.username }},</p>
+        <p>Please click on the link below to activate your account:</p>
+        <p><a href="https://{{ domain }}{% url 'activate' uidb64=uid token=token %}">Activate your account</a></p>
+    </div>
+    <div class="footer">
+        <p>Welcome to our service! We're thrilled to have you on board. 😊</p>
+        <p>Best regards,</p>
+        <p>Dr. Mehran Shabani</p>
+    </div>
+</div>
+</body>
+</html>

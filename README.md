@@ -108,6 +108,7 @@ Project Structure
     │   │       ├── password_reset_done.html
     │   │       ├── password_reset_confirm.html
     │   │       ├── password_reset_complete.html
+                ├── acc_active_email.html
     │   │   └── users/
     │   │       ├── profile.html
     │   ├── __init__.py
