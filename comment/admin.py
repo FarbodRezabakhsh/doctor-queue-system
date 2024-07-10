@@ -11,4 +11,4 @@ class CommentAdmin(admin.ModelAdmin):
 
     # Specify the fields to be displayed on the change list
     def get_list_display(self, request):
-        return ["user", "doctor", "content", "approach", "parent"]
+        return ["user", "doctor", "approach", "parent"]
