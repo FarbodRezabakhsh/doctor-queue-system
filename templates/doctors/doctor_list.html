@@ -1,26 +1,30 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h2>Doctors</h2>
-    <form method="get" action=".">
-        {{ form.as_p }}
-        <button type="submit">Search</button>
-    </form>
-    {% if query %}
-        <h2>Results for "{{ query }}"</h2>
-        <ul>
-            {% for result in results %}
-                <li>
-                    <a href="{% url 'doctor_detail' result.pk %}">{{ result.name }} - {{ result.specialization }}</a>
+    <div class="doctor-list-container">
+        <h2 class="doctor-list-heading">Doctors</h2>
+        <form method="get" action="." class="search-form">
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+        {% if query %}
+            <h2 class="search-results-heading">Results for "{{ query }}"</h2>
+        {% endif %}
+        <ul class="doctor-list">
+            {% for doctor in doctors %}
+                <li class="doctor-item">
+                    <a href="{% url 'doctor_detail' doctor.pk %}" class="doctor-link">
+                        <div class="doctor-info">
+                            <h3>{{ doctor.name }}</h3>
+                            <p>Specialization: {{ doctor.specialization }}</p>
+                            <p>Day of Week: {{ doctor.day_of_week }}</p>
+                            <p>Start Time: {{ doctor.start_time }}</p>
+                            <p>End Time: {{ doctor.end_time }}</p>
+                            <p>Fee: {{ doctor.fees }}</p>
+                        </div>
+                    </a>
                 </li>
             {% endfor %}
         </ul>
-    {% endif %}
-    <ul>
-        {% for doctor in doctors %}
-            <li>
-                <a href="{% url 'doctor_detail' doctor.pk %}">{{ doctor.name }} - {{ doctor.specialization }} - fees:{{ doctor.fees }}, time:{{ doctor.day_of_week }}</a>
-            </li>
-        {% endfor %}
-    </ul>
+    </div>
 {% endblock %}

@@ -4,7 +4,6 @@ from doctors.models import Doctor
 from django.contrib.auth.decorators import login_required
 
 
-@login_required
 def give_feedback(request, doctor_id):
     doctor = Doctor.objects.get(id=doctor_id)
     if request.method == 'POST':
