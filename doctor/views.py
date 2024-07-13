@@ -70,8 +70,24 @@ class LogoutDoctorView(View):
 class DoctorDetailView(View):
     def get(self, request,id):
         doctor = get_object_or_404(Doctor,pk=id)
-        return render(request,'doctor/doctor_detail.html',{'doctor':doctor})
+        work_table = get_object_or_404(WorkTable,doctor=doctor)
+        return render(request,'doctor/doctor_detail.html',{'doctor':doctor,'work_table':work_table})
 
+class BookAppointmentView(LoginRequiredMixin, View):
+    def post(self, request, doctor_id):
+        doctor = get_object_or_404(Doctor, id=doctor_id)
+        visit_time = request.POST.get('visit_time')
+        location = request.POST.get('location')
+        price = request.POST.get('price')
+
+        Appointment.objects.create(
+            doctor=doctor,
+            user=request.user,
+            visit_time=visit_time,
+            location_text=location,
+            visit_price=price,
+        )
+        return redirect('doctor:doctor_detail', id=doctor_id)
 
 
 

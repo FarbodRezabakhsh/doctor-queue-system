@@ -1,7 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Doctors Home</title>
+{% extends 'base.html' %}
+
+{% block title %}Doctors Home{% endblock %}
+
+{% block content %}
     <style>
         form {
             margin-bottom: 10px; /* Add bottom margin to the form */
@@ -10,18 +11,17 @@
             margin-bottom: 20px; /* Add bottom margin to the authentication links */
         }
     </style>
-</head>
-<body>
+
     <h1>All Doctors</h1>
 
     <div class="auth-links">
         {% if user.is_authenticated %}
-            <a href="{% url 'doctor:doctor_logout' %}">Logout</a>
+            <a href="{% url 'doctor:doctor_logout' %}" class="btn btn-dark">Logout</a>
         {% else %}
-            <a href="{% url 'doctor:doctor_register' %}">Sign Up</a>
-            <a href="{% url 'doctor:doctor_login' %}">Login</a>
+            <a href="{% url 'doctor:doctor_register' %}" class="btn btn-info">Sign Up</a>
+            <a href="{% url 'doctor:doctor_login' %}" class="btn btn-info">Login</a>
         {% endif %}
-        <a href="{% url 'doctor:doctor_home' %}">Home</a>
+        <a href="{% url 'doctor:doctor_home' %}" class="btn btn-info">Home</a>
     </div>
 
     <form method="get" action="{% url 'doctor:doctor_home' %}">
@@ -31,8 +31,7 @@
 
     <ul>
         {% for doctor in doctors %}
-        <li><a href="{% url 'doctor:doctor_detail' doctor.id %}">{{ doctor.name }}</a> - {{ doctor.resident }} </li>
+            <li><a href="{% url 'doctor:doctor_detail' doctor.id %}">{{ doctor.name }}</a> - {{ doctor.resident }}</li>
         {% endfor %}
     </ul>
-</body>
-</html>
+{% endblock %}

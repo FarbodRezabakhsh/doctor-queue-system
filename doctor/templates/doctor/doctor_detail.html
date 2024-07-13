@@ -1,18 +1,32 @@
-<!-- templates/doctor/doctor_detail.html -->
+{% extends 'base.html' %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Doctor Detail</title>
-</head>
-<body>
+{% block title %}Doctor Detail{% endblock %}
+
+{% block content %}
     <h1>{{ doctor.name }}</h1>
     <a href="{% url 'doctor:doctor_home' %}">
-    <button>Home page</button>
+        <button>Home page</button>
     </a>
     <p>Resident: {{ doctor.resident }}</p>
     <p>About Doctor: {{ doctor.info_text }}</p>
     <p>Status: {{ doctor.is_active|yesno:"Active,Inactive" }}</p>
-</body>
-</html>
+
+    <h2>Available Times</h2>
+    <ul>
+        {% for time in work_table.time_table %}
+            <li>{{ time }}</li>
+        {% endfor %}
+    </ul>
+    <h2>Book an Appointment</h2>
+    <form method="post" action="{% url 'doctor:book_appointment' doctor.id %}">
+        {% csrf_token %}
+        <label for="visit_time">Visit Time:</label>
+        <input type="datetime-local" id="visit_time" name="visit_time" required>
+        <label for="location">Location:</label>
+        <input type="text" id="location" name="location" required>
+        <label for="price">Price:</label>
+        <input type="text" id="price" name="price" value="{{ work_table.visit_price }}" readonly>
+        <button type="submit">Book Appointment</button>
+    </form>
+
+{% endblock %}

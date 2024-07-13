@@ -14,7 +14,7 @@ class CustomLoginView(LoginView):
     redirect_authenticated_user = True
 
     def get_success_url(self):
-        return reverse_lazy("doctor:home")
+        return reverse_lazy("doctor:doctor_home")
 
 
 class CustomRegisterView(CreateView):

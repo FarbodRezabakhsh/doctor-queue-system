@@ -25,7 +25,7 @@ class Appointment(models.Model):
 
 class WorkTable(models.Model):
     doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
-    time_table = models.JSONField()
+    time_table = models.JSONField(blank=True, null=True)
     visit_price = models.DecimalField(max_digits=10, decimal_places=2)
 
 class PatientInfo(models.Model):
