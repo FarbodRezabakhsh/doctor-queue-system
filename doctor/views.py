@@ -1,7 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.views import View
-from .models import Doctor,PatientInfo,Appointment,User,WorkTable
+from .models import Doctor,PatientInfo,Appointment,WorkTable
 from django.shortcuts import render, redirect
 from django.views.generic import ListView,CreateView,FormView,View
 from django.contrib.auth.views import LoginView, LogoutView
