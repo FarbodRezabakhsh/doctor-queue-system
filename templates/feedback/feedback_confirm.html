@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Feedback Confirmation</h2>
+    <p>Thank you for your feedback!</p>
+    <p><strong>Rating:</strong> {{ feedback.rating }}</p>
+    <p><strong>Comment:</strong> {{ feedback.comment }}</p>
+    <a class="btn btn-primary" href="{% url 'doctor_detail' feedback.doctor.id %}">Back to Doctor Details</a>
+{% endblock %}

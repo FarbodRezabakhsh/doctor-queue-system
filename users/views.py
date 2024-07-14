@@ -76,3 +76,8 @@ class LoggedOutView(View):
 
     def get(self, request):
         return render(request, self.template_name)
+
+
+@login_required
+def login_done(request):
+    return render(request, 'registration/login_done.html')

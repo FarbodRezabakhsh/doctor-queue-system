@@ -80,14 +80,21 @@ Project Structure
     │   ├── tests.py
     │   ├── urls.py
     │   └── views.py
-    ├── css/
-    │   ├── style.css
-    │   └── layout.css
+    ├── static/
+    │   ├── css/
+    │       ├── custom.css
+    │       ├── doctor_list.css
+    │       ├── appointment_form.css
+    │       ├── give_feedback.css
+    │       ├── profile.css
+    │       ├── signup.css
+    │       ├── appointment_form.css
     ├── doctors/
     │   ├── migrations/
     │   ├── __init__.py
     │   ├── admin.py
     │   ├── apps.py
+    │   ├── forms.py
     │   ├── models.py
     │   ├── tests.py
     │   ├── urls.py
@@ -107,6 +114,7 @@ Project Structure
     │   │   ├── appointment_success.html
     │   ├── doctors/
     │   │   ├── doctor_detail.html
+    │   │   ├── doctor_list.html
     │   ├── feedback/
     │   │   ├── feedback_form.html
     │   ├── registration/
@@ -123,6 +131,7 @@ Project Structure
     │   │   ├── profile.html
     ├── online_doctor_appointment_system/
     │   ├── __init__.py
+    │   ├── add_samples.py
     │   ├── settings.py
     │   ├── urls.py 
     │   └── wsgi.py
@@ -158,5 +167,6 @@ Make your changes.
 Commit your changes (git commit -am 'Add some feature').
 Push to the branch (git push origin feature-branch).
 Create a new Pull Request.
+
 License
 This project is licensed under the MIT License.

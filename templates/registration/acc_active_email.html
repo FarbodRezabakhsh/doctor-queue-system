@@ -6,57 +6,84 @@
     <title>Activate your account</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
             background-color: #f4f4f4;
             margin: 0;
             padding: 0;
             color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
         .container {
-            width: 100%;
-            max-width: 600px;
+            width: 90%;
+            max-width: 700px;
             margin: 0 auto;
             background-color: #fff;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            overflow: hidden;
+            animation: fadeIn 1s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
         .header {
             text-align: center;
-            padding: 20px;
+            padding: 30px;
             background-color: #4CAF50;
             color: white;
-            border-radius: 8px 8px 0 0;
+            border-radius: 15px 15px 0 0;
+            position: relative;
         }
         .header h1 {
             margin: 0;
-            font-size: 24px;
+            font-size: 28px;
+            animation: slideInDown 1s ease-in-out;
+        }
+        @keyframes slideInDown {
+            from { transform: translateY(-100%); }
+            to { transform: translateY(0); }
         }
         .content {
-            padding: 20px;
+            padding: 30px;
             text-align: center;
         }
         .content p {
-            font-size: 18px;
+            font-size: 20px;
+            margin-bottom: 20px;
+            animation: fadeIn 2s ease-in-out;
         }
         .content a {
             display: inline-block;
             margin-top: 20px;
-            padding: 10px 20px;
-            font-size: 18px;
+            padding: 15px 30px;
+            font-size: 20px;
             color: white;
             background-color: #4CAF50;
             text-decoration: none;
-            border-radius: 5px;
+            border-radius: 50%;
+            animation: rotate 2s infinite linear;
+        }
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
         .footer {
-            margin-top: 20px;
+            margin-top: 30px;
             text-align: center;
-            font-size: 16px;
+            font-size: 18px;
             color: #777;
+            animation: fadeIn 3s ease-in-out;
         }
         .footer p {
-            margin: 5px 0;
+            margin: 10px 0;
+        }
+        .emoji {
+            font-size: 24px;
         }
     </style>
 </head>
@@ -67,8 +94,17 @@
     </div>
     <div class="content">
         <p>Hi {{ user.username }},</p>
+        <p>We're excited to have you on board! 🎉 With our online appointment system, you can easily book, reschedule, or cancel your appointments with just a few clicks. No more waiting in long lines or dealing with busy phone lines. 📅</p>
+        <p>Here are some of the benefits of using our online appointment system:</p>
+        <ul>
+            <li>📅 Convenient 24/7 booking</li>
+            <li>🔔 Instant confirmation and reminders</li>
+            <li>⏰ Save time and avoid long waits</li>
+            <li>📂 Easy access to your appointment history</li>
+            <li>🤝 Hassle-free rescheduling and cancellations</li>
+        </ul>
         <p>Please click on the link below to activate your account:</p>
-        <p><a href="https://{{ domain }}{% url 'activate' uidb64=uid token=token %}">Activate your account</a></p>
+        <p><a href="http://127.0.0.1:8000{% url 'activate' uidb64=uid token=token %}">Activate your account</a></p>
     </div>
     <div class="footer">
         <p>Welcome to our service! We're thrilled to have you on board. 😊</p>

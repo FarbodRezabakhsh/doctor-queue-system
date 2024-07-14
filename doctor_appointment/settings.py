@@ -76,7 +76,6 @@ SOCIALACCOUNT_PROVIDERS = {
 
 
 AUTHENTICATION_BACKENDS = [
-
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
 # OTP Configuration
@@ -165,11 +164,11 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / 'static/']
-
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_REDIRECT_URL = '/users/profile/'
+LOGIN_REDIRECT_URL = '/users/login/done/'
 LOGOUT_REDIRECT_URL = '/'

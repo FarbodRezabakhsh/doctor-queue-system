@@ -56,7 +56,8 @@ class Doctor(models.Model):
         ('Private Clinic', 'Private Clinic'),
     ]
 
-    TIME_CHOICES = [(f'{h:02d}:{m:02d}', f'{h:02d}:{m:02d}') for h in range(24) for m in (0, 30)]
+    # Define time choices from 9:00 to 16:30 in 30-minute intervals
+    TIME_CHOICES = [(f'{h:02d}:{m:02d}', f'{h:02d}:{m:02d}') for h in range(9, 17) for m in (0, 30) if not (h == 16 and m == 30)]
 
     name = models.CharField(max_length=100)
     specialization = models.CharField(max_length=100, choices=SPECIALIZATIONS)
