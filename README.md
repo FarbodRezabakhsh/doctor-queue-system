@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Online Doctor Appointment System
 
 This project is an online system for managing and booking doctor appointments by patients. By developing this project, you can help the stakeholders of this community.
@@ -170,3 +171,6 @@ Create a new Pull Request.
 
 License
 This project is licensed under the MIT License.
+=======
+complete it
+>>>>>>> 22e6f3714d375f0d1b2d4ecca9e19d50a509a201
