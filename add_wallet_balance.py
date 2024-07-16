@@ -10,7 +10,7 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 # یافتن کاربر با ایمیل مشخص
-user = User.objects.get(email="shabanimehran@gmail.com")
+user = User.objects.get(email="your_email")
 
 # افزودن مقدار 1000 به موجودی کیف پول
 user.wallet_balance += 50000

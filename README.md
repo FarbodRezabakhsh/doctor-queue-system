@@ -53,6 +53,7 @@ Create a .env file in the root directory of the project and add the necessary en
     SECRET_KEY='your-secret-key'
     DEBUG=True
     DATABASE_URL='sqlite:///db.sqlite3'
+At add_wallet_balance.py after create a user use your user's email for charge your 
 Apply migrations:
 
 
