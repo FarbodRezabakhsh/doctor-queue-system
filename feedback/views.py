@@ -2,8 +2,9 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from appointments.models import Appointment
 from .models import Doctor, Feedback
-from django.core.mail import send_mail
+from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
+
 
 @login_required
 def give_feedback(request, doctor_id):
@@ -26,7 +27,8 @@ def give_feedback(request, doctor_id):
             existing_feedback.comment = comment if user_appointments else existing_feedback.comment
             existing_feedback.save()
         else:
-            new_feedback = Feedback(user=request.user, doctor=doctor, rating=rating, comment=comment if user_appointments else '')
+            new_feedback = Feedback(user=request.user, doctor=doctor, rating=rating,
+                                    comment=comment if user_appointments else '')
             new_feedback.save()
 
         # ارسال ایمیل تأیید
@@ -35,6 +37,7 @@ def give_feedback(request, doctor_id):
         return redirect('feedback_confirm', doctor_id=doctor_id)
 
     return render(request, 'feedback/give_feedback.html', {'doctor': doctor})
+
 
 def send_confirmation_email(user, doctor, rating, comment):
     stars = '★' * int(rating) + '☆' * (5 - int(rating))
@@ -45,8 +48,10 @@ def send_confirmation_email(user, doctor, rating, comment):
         'rating': stars,
         'comment': comment,
     }
-    message = render_to_string('emails/feedback_confirmation.html', context)
-    send_mail(subject, '', 'your-email@example.com', [user.email], html_message=message)
+    message = render_to_string('feedback/feedback_confirmation.html', context)
+    email = EmailMessage(subject, message, to=[user.email])
+    email.content_subtype = 'html'  # Set the email content type to HTML
+    email.send()
 
 
 @login_required
