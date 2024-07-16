@@ -5,11 +5,11 @@ from .models import Doctor, Feedback
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 
-
 @login_required
 def give_feedback(request, doctor_id):
+    print(request.user)
     doctor = get_object_or_404(Doctor, id=doctor_id)
-    user_appointments = Appointment.objects.filter(user=request.user, doctor=doctor).exists()
+    user_appointments = Appointment.objects.filter(patient=request.user, doctor=doctor).exists()
 
     if request.method == 'POST':
         rating = request.POST['rating']
@@ -18,6 +18,7 @@ def give_feedback(request, doctor_id):
         if comment and not user_appointments:
             # اگر کاربر نوبت نداشته باشد و نظر بخواهد ثبت کند
             error_message = "شما نمی‌توانید نظر بدهید زیرا نوبتی نزد این پزشک نداشته‌اید."
+            print(user_appointments)
             return render(request, 'feedback/give_feedback.html', {'doctor': doctor, 'error_message': error_message})
 
         # بررسی وجود بازخورد قبلی
@@ -27,8 +28,7 @@ def give_feedback(request, doctor_id):
             existing_feedback.comment = comment if user_appointments else existing_feedback.comment
             existing_feedback.save()
         else:
-            new_feedback = Feedback(user=request.user, doctor=doctor, rating=rating,
-                                    comment=comment if user_appointments else '')
+            new_feedback = Feedback(user=request.user, doctor=doctor, rating=rating, comment=comment if user_appointments else '')
             new_feedback.save()
 
         # ارسال ایمیل تأیید
@@ -38,10 +38,9 @@ def give_feedback(request, doctor_id):
 
     return render(request, 'feedback/give_feedback.html', {'doctor': doctor})
 
-
 def send_confirmation_email(user, doctor, rating, comment):
     stars = '★' * int(rating) + '☆' * (5 - int(rating))
-    subject = 'تأیید نظر و امتیاز شما'
+    subject = f'Your feedback for {doctor.name} has been submitted'
     context = {
         'user': user,
         'doctor': doctor,
@@ -52,7 +51,6 @@ def send_confirmation_email(user, doctor, rating, comment):
     email = EmailMessage(subject, message, to=[user.email])
     email.content_subtype = 'html'  # Set the email content type to HTML
     email.send()
-
 
 @login_required
 def feedback_confirm(request, doctor_id):

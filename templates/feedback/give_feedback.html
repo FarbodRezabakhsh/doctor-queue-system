@@ -1,6 +1,12 @@
 {% extends "base.html" %}
+
 {% block content %}
     <h2>Give Feedback for Dr. {{ doctor.name }}</h2>
+
+    {% if error_message %}
+        <div class="alert alert-danger">{{ error_message }}</div>
+    {% endif %}
+
     <form method="post">
         {% csrf_token %}
         <label for="rating">Rating:</label>
