@@ -1,33 +1,8 @@
-# Python related
-*.pyc
-__pycache__/
-
-# Virtual environment
-env/
-venv/
-ENV/
-.venv/
-ENV.bak/
-.env.bak/
-.vscode/
-
-# Django related
-db.sqlite3
-media/
-users/migrations/
-doctors/migrations/
-feedback/migrations/
-appointments/migrations/
-staticfiles/
-*.log
-local_settings.py
-
-
-# JetBrains IDEs
-.idea/
-
-# macOS related
-.DS_Store
-
-# Windows related
-Thumbs.db
+# Default ignored files
+/shelf/
+/workspace.xml
+# Editor-based HTTP Client requests
+/httpRequests/
+# Datasource local storage ignored files
+/dataSources/
+/dataSources.local.xml
