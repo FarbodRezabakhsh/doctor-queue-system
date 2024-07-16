@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Online Doctor Appointment System
 
 This project is an online system for managing and booking doctor appointments by patients. By developing this project, you can help the stakeholders of this community.
@@ -53,7 +52,6 @@ Create a .env file in the root directory of the project and add the necessary en
     SECRET_KEY='your-secret-key'
     DEBUG=True
     DATABASE_URL='sqlite:///db.sqlite3'
-At add_wallet_balance.py after create a user use your user's email for charge your 
 Apply migrations:
 
 
@@ -172,6 +170,3 @@ Create a new Pull Request.
 
 License
 This project is licensed under the MIT License.
-=======
-complete it
->>>>>>> 22e6f3714d375f0d1b2d4ecca9e19d50a509a201

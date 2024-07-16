@@ -1,11 +1,24 @@
+from django.core.mail import EmailMessage
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
+from django.template.loader import render_to_string
 from doctors.models import Doctor
 from .forms import AppointmentForm
 from .get_time import get_available_times
 from django.core.exceptions import ValidationError
 from datetime import datetime, timedelta
 
+
+def send_appointment_email(user, doctor, appointment):
+    mail_subject = 'تأیید نوبت'
+    message = render_to_string('registration/appointment_confirmation_email.html', {
+        'user': user,
+        'doctor': doctor,
+        'appointment': appointment,
+    })
+    email = EmailMessage(mail_subject, message, to=[user.email])
+    email.content_subtype = 'html'  # تنظیم نوع محتوای ایمیل به HTML
+    email.send()
 
 @login_required
 def book_appointment(request, doctor_id):
@@ -20,15 +33,16 @@ def book_appointment(request, doctor_id):
             appointment.patient = user
 
             if not appointment.time:
-                form.add_error('time', 'Please select a time for your appointment.')
-            elif user.wallet_balance < doctor.fee:  # Use user's wallet_balance instead of CustomUser.wallet_balance
-                form.add_error(None, 'Insufficient funds in your wallet to book this appointment.')
+                form.add_error('time', 'لطفاً زمان نوبت خود را انتخاب کنید.')
+            elif user.wallet_balance < doctor.fee:
+                form.add_error(None, 'موجودی کیف پول شما برای رزرو این نوبت کافی نیست.')
             else:
                 try:
-                    appointment.clean()  # Ensure the appointment is valid
+                    appointment.clean()
                     appointment.save()
                     user.wallet_balance -= doctor.fee
                     user.save()
+                    send_appointment_email(user, doctor, appointment)  # ارسال ایمیل
                     return redirect('appointment_success')
                 except ValidationError as e:
                     form.add_error(None, e)
@@ -42,11 +56,10 @@ def book_appointment(request, doctor_id):
         }
         form = AppointmentForm(initial=initial_data)
 
-    # Calculate available times for the next 15 days
     today = datetime.today().date()
     next_appointment_day = None
     available_times = []
-    for i in range(15):  # Check up to the next 15 days
+    for i in range(15):
         appointment_date = today + timedelta(days=i)
         if appointment_date.strftime('%A') == doctor.day_of_week:
             next_appointment_day = appointment_date

@@ -21,6 +21,7 @@ appointments/migrations/
 staticfiles/
 *.log
 local_settings.py
+.env
 
 # JetBrains IDEs
 .idea/

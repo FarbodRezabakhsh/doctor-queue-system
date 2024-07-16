@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointment Confirmation</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            color: #333;
+        }
+        .container {
+            width: 80%;
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .header {
+            background-color: #007bff;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            border-bottom: 5px solid #0056b3;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .content {
+            padding: 20px;
+            text-align: center;
+        }
+        .content p {
+            margin: 10px 0;
+        }
+        .content .greeting {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .content .appointment-details {
+            margin: 20px 0;
+            font-size: 16px;
+        }
+        .footer {
+            background-color: #f1f1f1;
+            text-align: center;
+            padding: 15px;
+            border-top: 1px solid #ddd;
+        }
+        .footer p {
+            margin: 0;
+            color: #555;
+            font-size: 14px;
+        }
+        .emoji {
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>Appointment Confirmation &#128197;</h1>
+    </div>
+    <div class="content">
+        <p class="greeting">Hello {{ user.username }} &#128075;,</p>
+        <p class="appointment-details">Your appointment with Dr. {{ doctor.name }} is confirmed for <strong>{{ appointment.date }}</strong> at <strong>{{ appointment.time }}</strong> &#128522;.</p>
+        <p>If you need further assistance, please feel free to contact us.</p>
+    </div>
+    <div class="footer">
+        <p>Thank you &#128077;,</p>
+        <p>Support Team &#128151;</p>
+    </div>
+</div>
+</body>
+</html>

@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'django_otp',
     'crispy_forms',
     'crispy_bootstrap4'
+
 ]
 
 AUTH_USER_MODEL = 'users.CustomUser'
@@ -59,7 +60,7 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'shabanimehran@gmail.com'
-EMAIL_HOST_PASSWORD = 'xvyv kkev asch hoov'
+
 EMAIL_USE_SSL = False
 
 # Allauth Configuration
@@ -87,6 +88,8 @@ OTP_TOTP_ISSUER = 'OnlineDoctorAppointmentSystem'
 load_dotenv()
 SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = os.getenv('DEBUG') == 'True'
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -172,3 +175,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = '/users/login/done/'
 LOGOUT_REDIRECT_URL = '/'
+ACCOUNT_EMAIL_CONFIRMATION_HTML_TEMPLATE = 'templates/registration/email_confirmation_message.html'
+ACCOUNT_EMAIL_CONFIRMATION_SUBJECT = "Email Confirmation for {site_name}"
