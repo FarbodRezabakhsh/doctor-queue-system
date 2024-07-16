@@ -10,7 +10,7 @@ from datetime import datetime, timedelta
 
 
 def send_appointment_email(user, doctor, appointment):
-    mail_subject = 'تأیید نوبت'
+    mail_subject = 'comfirm appointment'
     message = render_to_string('registration/appointment_confirmation_email.html', {
         'user': user,
         'doctor': doctor,
@@ -33,16 +33,16 @@ def book_appointment(request, doctor_id):
             appointment.patient = user
 
             if not appointment.time:
-                form.add_error('time', 'لطفاً زمان نوبت خود را انتخاب کنید.')
+                form.add_error('time', 'please choose a time!!!')
             elif user.wallet_balance < doctor.fee:
-                form.add_error(None, 'موجودی کیف پول شما برای رزرو این نوبت کافی نیست.')
+                form.add_error(None, 'not enough wallet balance!!!!!!!!')
             else:
                 try:
                     appointment.clean()
                     appointment.save()
                     user.wallet_balance -= doctor.fee
                     user.save()
-                    send_appointment_email(user, doctor, appointment)  # ارسال ایمیل
+                    send_appointment_email(user, doctor, appointment)  # send email notification
                     return redirect('appointment_success')
                 except ValidationError as e:
                     form.add_error(None, e)
