@@ -5,5 +5,5 @@ django-allauth~=0.63.3
 pyjwt~=2.8.0
 faker~=26.0.0
 django-crispy-forms==2.2
-django-crispy-bootstrap4==2024.1
+crispy-bootstrap4==2024.1
 django-google-auth==0.4.0
