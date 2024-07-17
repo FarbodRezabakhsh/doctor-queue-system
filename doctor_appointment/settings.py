@@ -47,19 +47,23 @@ INSTALLED_APPS = [
     'django_otp',
     'crispy_forms',
     'crispy_bootstrap4'
-
 ]
 
 AUTH_USER_MODEL = 'users.CustomUser'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
+load_dotenv()
+SECRET_KEY = os.getenv('SECRET_KEY')
+DEBUG = os.getenv('DEBUG') == 'True'
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+
 # Email Backend Configuration
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'shabanimehran@gmail.com'
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 
 EMAIL_USE_SSL = False
 
