@@ -4,6 +4,6 @@ django-otp~=1.5.0
 django-allauth~=0.63.3
 pyjwt~=2.8.0
 faker~=26.0.0
-cripsy_form==2.2
-cripsy_bootstrap==2024.1
+django_cripsy_form==2.2
+django_cripsy_bootstrap==2024.1
 django-google-auth==0.4.0
