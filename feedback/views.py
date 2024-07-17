@@ -16,12 +16,12 @@ def give_feedback(request, doctor_id):
         comment = request.POST['comment']
 
         if comment and not user_appointments:
-            # اگر کاربر نوبت نداشته باشد و نظر بخواهد ثبت کند
-            error_message = "شما نمی‌توانید نظر بدهید زیرا نوبتی نزد این پزشک نداشته‌اید."
+            # if we dont have appointment information from this user
+            error_message = "You can't comment for every physician that you don't have appointment"
             print(user_appointments)
             return render(request, 'feedback/give_feedback.html', {'doctor': doctor, 'error_message': error_message})
 
-        # بررسی وجود بازخورد قبلی
+        # check history of feedback
         existing_feedback = Feedback.objects.filter(user=request.user, doctor=doctor).first()
         if existing_feedback:
             existing_feedback.rating = rating
@@ -31,7 +31,7 @@ def give_feedback(request, doctor_id):
             new_feedback = Feedback(user=request.user, doctor=doctor, rating=rating, comment=comment if user_appointments else '')
             new_feedback.save()
 
-        # ارسال ایمیل تأیید
+        # send confirm email contain this feedback
         send_confirmation_email(request.user, doctor, rating, comment)
 
         return redirect('feedback_confirm', doctor_id=doctor_id)

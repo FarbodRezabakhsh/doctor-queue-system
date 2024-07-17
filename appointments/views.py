@@ -16,8 +16,8 @@ def send_appointment_email(user, doctor, appointment):
         'doctor': doctor,
         'appointment': appointment,
     })
-    email = EmailMessage(mail_subject, message, to=[user.email])
-    email.content_subtype = 'html'  # تنظیم نوع محتوای ایمیل به HTML
+    email = EmailMessage(mail_subject, message, to=[user.email, doctor.email])
+    email.content_subtype = 'html'  # convert to html string
     email.send()
 
 @login_required

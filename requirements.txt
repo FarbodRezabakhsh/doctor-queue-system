@@ -6,3 +6,4 @@ pyjwt~=2.8.0
 faker~=26.0.0
 cripsy_form==2.2
 cripsy_bootstrap==2024.1
+django-google-auth==0.4.0

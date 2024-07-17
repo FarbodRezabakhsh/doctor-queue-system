@@ -1,6 +1,5 @@
 from django.db.models import Q
 from django.shortcuts import render, get_object_or_404
-
 from doctors.forms import SearchForm
 from doctors.models import Doctor
 from appointments.models import Appointment
