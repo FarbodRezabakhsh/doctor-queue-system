@@ -42,7 +42,8 @@ def book_appointment(request, doctor_id):
                     appointment.save()
                     user.wallet_balance -= doctor.fee
                     user.save()
-                    send_appointment_email(user, doctor, appointment)  # send email notification
+                    send_appointment_email(user, doctor, appointment)   # send email notification
+                    send_appointment_email(user, doctor, appointment)   # send email notification
                     return redirect('appointment_success')
                 except ValidationError as e:
                     form.add_error(None, e)
