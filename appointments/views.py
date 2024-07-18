@@ -11,11 +11,11 @@ from datetime import datetime, timedelta
 
 def send_appointment_email(user, doctor, appointment):
     mail_subject = 'comfirm appointment'
-    message = render_to_string('registration/appointment_confirmation_email.html', {
+    message = render_to_string['registration/appointment_confirmation_email.html', 'registration/appointment_confirmation_email_for_doctor.html', {
         'user': user,
         'doctor': doctor,
         'appointment': appointment,
-    })
+    }]
     email = EmailMessage(mail_subject, message, to=[user.email, doctor.email])
     email.content_subtype = 'html'  # convert to html string
     email.send()
