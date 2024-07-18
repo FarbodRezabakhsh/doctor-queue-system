@@ -9,6 +9,7 @@ from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes, force_str
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.views.generic import View
+from .signals import user_registered
 
 from .forms import CustomUserCreationForm
 from .models import CustomUser
@@ -19,22 +20,10 @@ def signup(request):
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
-            user.is_active = False  # غیرفعال کردن کاربر تا وقتی که ایمیل تأیید کند
+            user.is_active = False  # Deactivate the user until email confirmation
             user.save()
-            current_site = get_current_site(request)
-            mail_subject = 'Activate your account.'
-            message = render_to_string('registration/acc_active_email.html', {
-                'user': user,
-                'domain': current_site.domain,
-                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-                'token': token_generator.make_token(user),
-            })
-            to_email = form.cleaned_data.get('email')
-            email = EmailMessage(mail_subject, message, to=[to_email])
-            email.content_subtype = 'html'  # تنظیم نوع محتوای ایمیل به HTML
-            email.send()
-            return render(request,
-                          'registration/confirm_email.html')  # صفحه‌ای که به کاربر می‌گوید ایمیل تأیید را چک کند
+            user_registered.send(sender=CustomUser, user=user, request=request)  # Trigger the custom signal
+            return render(request, 'registration/confirm_email.html')  # Tell the user to check their email
     else:
         form = CustomUserCreationForm()
     return render(request, 'registration/signup.html', {'form': form})
