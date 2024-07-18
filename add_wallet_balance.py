@@ -13,7 +13,7 @@ User = get_user_model()
 user = User.objects.get(email="shabanimehran@gmail.com")
 doctor =Doctor.objects.get(name='Bruce Madden')
 # افزودن مقدار 1000 به موجودی کیف پول
-user.wallet_balance += 500
+user.wallet_balance += 1000
 doctor.email = user.email
 # ذخیره تغییرات در پایگاه داده
 user.save()

@@ -10,15 +10,27 @@ from datetime import datetime, timedelta
 
 
 def send_appointment_email(user, doctor, appointment):
-    mail_subject = 'comfirm appointment'
-    message = render_to_string['registration/appointment_confirmation_email.html', 'registration/appointment_confirmation_email_for_doctor.html', {
+    # Email to patient
+    patient_subject = 'Confirm appointment'
+    patient_message = render_to_string('registration/appointment_confirmation_email.html', {
         'user': user,
         'doctor': doctor,
         'appointment': appointment,
-    }]
-    email = EmailMessage(mail_subject, message, to=[user.email, doctor.email])
-    email.content_subtype = 'html'  # convert to html string
-    email.send()
+    })
+    patient_email = EmailMessage(patient_subject, patient_message, to=[user.email])
+    patient_email.content_subtype = 'html'  # convert to html string
+    patient_email.send()
+
+    # Email to doctor
+    doctor_subject = 'New appointment booked'
+    doctor_message = render_to_string('registration/appointment_confirmation_email_to_doctor.html', {
+        'user': user,
+        'doctor': doctor,
+        'appointment': appointment,
+    })
+    doctor_email = EmailMessage(doctor_subject, doctor_message, to=[doctor.email])
+    doctor_email.content_subtype = 'html'  # convert to html string
+    doctor_email.send()
 
 @login_required
 def book_appointment(request, doctor_id):
@@ -42,7 +54,6 @@ def book_appointment(request, doctor_id):
                     appointment.save()
                     user.wallet_balance -= doctor.fee
                     user.save()
-                    send_appointment_email(user, doctor, appointment)   # send email notification
                     send_appointment_email(user, doctor, appointment)   # send email notification
                     return redirect('appointment_success')
                 except ValidationError as e:
