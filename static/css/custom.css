@@ -5,6 +5,9 @@ body {
     font-family: 'Comic Sans MS', cursive, sans-serif;
     background-color: #a3c4f3;
     color: #333;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
 }
 
 /* تنظیمات Navbar */
@@ -13,6 +16,13 @@ body {
     border-bottom: 1px solid #061f13;
     background-color: #88bff3;
     font-size: 1.1rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s, border-bottom 0.3s;
+}
+
+.navbar:hover {
+    background-color: #7aa9d9;
+    border-bottom: 1px solid #034b09;
 }
 
 .navbar-brand {
@@ -20,6 +30,7 @@ body {
     align-items: center;
     font-size: 1.5rem;
     color: rgba(0, 72, 175, 0.85);
+    animation: rotate3d 8s infinite;
 }
 
 .title-part-1, .title-part-3 {
@@ -37,11 +48,12 @@ body {
 
 .navbar-nav .nav-item .nav-link {
     color: #0074d9;
-    transition: color 0.3s;
+    transition: color 0.3s, transform 0.3s;
 }
 
 .navbar-nav .nav-item .nav-link:hover {
     color: #005bb5;
+    transform: scale(1.1) rotateY(10deg);
 }
 
 /* تنظیمات فرم ها */
@@ -51,8 +63,8 @@ body {
 
 .form-control {
     border-radius: 10px;
-    box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
-    transition: border-color 0.3s;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s, box-shadow 0.3s;
 }
 
 .form-control:focus {
@@ -63,7 +75,7 @@ body {
 .btn {
     border-radius: 10px;
     padding: 10px 20px;
-    transition: background-color 0.3s, border-color 0.3s;
+    transition: background-color 0.3s, border-color 0.3s, transform 0.3s;
 }
 
 .btn-primary {
@@ -74,12 +86,18 @@ body {
 .btn-primary:hover {
     background-color: #005bb5;
     border-color: #005bb5;
+    transform: scale(1.05) rotate(5deg);
 }
 
 /* تنظیمات Alert ها */
 .fun-alert {
     border-radius: 10px;
     border: 2px solid #0074d9;
+    padding: 10px;
+    background-color: #e7f3ff;
+    color: #0074d9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    animation: shake 0.5s infinite;
 }
 
 /* تنظیمات Footer */
@@ -87,269 +105,121 @@ body {
     background-color: #88bff3;
     padding: 10px 0;
     border-top: 1px solid #6ba9f3;
+    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s, border-top 0.3s;
+}
+
+.footer:hover {
+    background-color: #7aa9d9;
+    border-top: 1px solid #5b94c9;
 }
 
 .footer span {
     color: #0074d9;
+    animation: rotate3d 8s infinite;
 }
 
-/* انیمیشن‌های ساده */
-@keyframes bounce {
-    0%, 100% {
-        transform: translateY(0);
+/* انیمیشن‌های سه‌بعدی */
+@keyframes rotate3d {
+    0% {
+        transform: rotateX(0) rotateY(0) rotateZ(0);
+    }
+    25% {
+        transform: rotateX(0) rotateY(180deg) rotateZ(0);
     }
     50% {
-        transform: translateY(-5px);
+        transform: rotateX(0) rotateY(180deg) rotateZ(180deg);
+    }
+    75% {
+        transform: rotateX(180deg) rotateY(180deg) rotateZ(180deg);
+    }
+    100% {
+        transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg);
     }
 }
 
-.navbar-brand, .navbar-nav .nav-item .nav-link, .footer span {
-    animation: bounce 2s infinite;
-}
-/* doctor_detail.css */
-
-/* تنظیمات کلی */
-body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f7f7f7;
-    color: #333;
-}
-
-/* تنظیمات صفحه جزئیات پزشک */
-.doctor-detail-container {
-    background-color: #ffffff;
-    padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    max-width: 600px;
-    margin: 2rem auto;
-    text-align: center;
+@keyframes shake {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    25% {
+        transform: translateX(-10px);
+    }
+    50% {
+        transform: translateX(10px);
+    }
+    75% {
+        transform: translateX(-10px);
+    }
 }
 
-.doctor-name {
-    font-size: 2.5rem;
-    font-weight: bold;
-    color: #0074d9;
-    margin-bottom: 1.5rem;
+/* اضافه کردن انیمیشن برای جابجایی المان ها */
+@keyframes slideIn {
+    from {
+        transform: translateX(-100%);
+    }
+    to {
+        transform: translateX(0);
+    }
 }
 
-.doctor-info {
-    font-size: 1.2rem;
-    color: #555;
-    margin-bottom: 0.8rem;
+@keyframes slideOut {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(100%);
+    }
 }
 
-.doctor-info strong {
-    color: #333;
+.slide-in {
+    animation: slideIn 0.5s forwards;
 }
 
-.btn-primary {
-    background-color: #0074d9;
-    border-color: #0074d9;
-    padding: 10px 20px;
-    font-size: 1.2rem;
-    border-radius: 5px;
-    transition: background-color 0.3s, border-color 0.3s;
+.slide-out {
+    animation: slideOut 0.5s forwards;
 }
 
-.btn-primary:hover {
-    background-color: #005bb5;
-    border-color: #005bb5;
-}
-/* doctor_list.css */
-
-/* تنظیمات کلی */
-body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f7f7f7;
-    color: #333;
-}
-
-/* تنظیمات لیست پزشکان */
-.doctor-list-container {
-    background-color: #ffffff;
-    padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    max-width: 800px;
-    margin: 2rem auto;
-    text-align: center;
-}
-
-.doctor-list-heading {
-    font-size: 2.5rem;
-    font-weight: bold;
-    color: #0074d9;
-    margin-bottom: 1.5rem;
-}
-
-.search-form {
-    margin-bottom: 2rem;
-}
-
-.search-form .form-group {
-    margin-bottom: 15px;
-}
-
-.search-form .form-control {
-    border-radius: 5px;
-    box-shadow: none;
-    transition: border-color 0.3s;
-}
-
-.search-form .form-control:focus {
-    border-color: #0074d9;
-}
-
-.search-form .btn-primary {
-    background-color: #0074d9;
-    border-color: #0074d9;
-    padding: 10px 20px;
-    font-size: 1.2rem;
-    border-radius: 5px;
-    transition: background-color 0.3s, border-color 0.3s;
-}
-
-.search-form .btn-primary:hover {
-    background-color: #005bb5;
-    border-color: #005bb5;
-}
-
-.search-results-heading {
-    font-size: 2rem;
-    color: #333;
-    margin-bottom: 1rem;
-}
-
-.doctor-list {
-    list-style-type: none;
-    padding: 0;
-}
-
-.doctor-item {
-    margin-bottom: 1rem;
-    padding: 1rem;
-    background-color: #f9f9f9;
-    border: 1px solid #e0e0e0;
-    border-radius: 5px;
-    transition: background-color 0.3s, border-color 0.3s;
-}
-
-.doctor-item:hover {
-    background-color: #e9e9e9;
-    border-color: #d0d0d0;
-}
-
-.doctor-link {
-    text-decoration: none;
-    color: #0074d9;
+/* جزییات بیشتر برای صفحه خوش آمدگویی */
+.welcome-title {
+    animation: rotate3d 8s infinite;
     transition: color 0.3s;
 }
 
-.doctor-link:hover {
+.welcome-title:hover {
     color: #005bb5;
 }
 
-.doctor-info h3 {
-    margin-top: 0;
-    margin-bottom: 0.5rem;
+.welcome-lead {
     font-size: 1.5rem;
     color: #333;
+    margin-top: 1rem;
+    transition: color 0.3s;
 }
 
-.doctor-info p {
-    margin: 0.2rem 0;
-    color: #555;
-}
-/* give_feedback.css */
-
-/* تنظیمات کلی */
-body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f7f7f7;
-    color: #333;
+.welcome-lead:hover {
+    color: #0074d9;
 }
 
-/* تنظیمات فرم بازخورد */
-.feedback-container {
-    background-color: #ffffff;
-    padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    max-width: 600px;
+.welcome-hr {
+    border: 1px solid #0074d9;
+    width: 50%;
     margin: 2rem auto;
 }
 
-h2 {
-    font-size: 2.5rem;
-    font-weight: bold;
-    color: #0074d9;
-    text-align: center;
-    margin-bottom: 1.5rem;
-}
-
-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-label {
+.welcome-text {
     font-size: 1.2rem;
-    margin-top: 1rem;
     color: #555;
+    margin-bottom: 2rem;
 }
 
-input[type="number"],
-textarea {
-    width: 100%;
-    max-width: 400px;
-    padding: 0.5rem;
-    margin-top: 0.5rem;
-    border: 1px solid #ced4da;
-    border-radius: 5px;
-    font-size: 1rem;
-    color: #333;
-    transition: border-color 0.3s;
-}
-
-input[type="number"]:focus,
-textarea:focus {
-    border-color: #0074d9;
-}
-
-textarea {
-    height: 100px;
-    resize: vertical;
-}
-
-button[type="submit"] {
-    margin-top: 1.5rem;
-    background-color: #0074d9;
-    color: white;
-    border: none;
-    padding: 10px 20px;
+.welcome-btn {
     font-size: 1.2rem;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s, border-color 0.3s;
+    padding: 10px 20px;
+    transition: background-color 0.3s, transform 0.3s;
 }
 
-button[type="submit"]:hover {
+.welcome-btn:hover {
     background-color: #005bb5;
+    transform: scale(1.1);
 }
-/* profile.css */
-
-/* تنظیمات کلی */
-body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f7f7f7;
-    color: #333;
-}
-
-/* تنظیمات پروفایل */
-.profile-container {
-    background-color: #ffffff;
-    padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.
