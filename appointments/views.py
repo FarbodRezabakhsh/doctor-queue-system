@@ -2,16 +2,18 @@ from django.core.mail import EmailMessage
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.template.loader import render_to_string
-from doctors.models import Doctor
 from .forms import AppointmentForm
 from .get_time import get_available_times
 from django.core.exceptions import ValidationError
 from datetime import datetime, timedelta
+from .signals import appointment_booked
+from doctors.models import Doctor
+from .models import Appointment
 
 
 def send_appointment_email(user, doctor, appointment):
     mail_subject = 'comfirm appointment'
-    message = render_to_string['registration/appointment_confirmation_email.html', 'registration/appointment_confirmation_email_for_doctor.html', {
+    message = render_to_string['registration/appointment_confirmation_email_for_doctor.html', 'registration/appointment_confirmation_email_for_doctor.html', {
         'user': user,
         'doctor': doctor,
         'appointment': appointment,
@@ -42,8 +44,7 @@ def book_appointment(request, doctor_id):
                     appointment.save()
                     user.wallet_balance -= doctor.fee
                     user.save()
-                    send_appointment_email(user, doctor, appointment)   # send email notification
-                    send_appointment_email(user, doctor, appointment)   # send email notification
+                    appointment_booked.send(sender=Appointment, user=user, doctor=doctor, appointment=appointment)
                     return redirect('appointment_success')
                 except ValidationError as e:
                     form.add_error(None, e)
