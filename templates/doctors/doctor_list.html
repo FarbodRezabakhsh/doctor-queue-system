@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="doctor-list-container">
+        <h2 class="doctor-list-heading">Doctors</h2>
+        <form method="get" action="." class="search-form">
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+        {% if query %}
+            <h2 class="search-results-heading">Results for "{{ query }}"</h2>
+            <ul class="doctor-list">
+                {% for result in results %}
+                    <li class="doctor-item">
+                        <a href="{% url 'doctor_detail' result.pk %}" class="doctor-link">
+                            <div class="doctor-info">
+                                <h3>{{ result.name }}</h3>
+                                <p>Specialization: {{ result.specialization }}</p>
+                                <p>Day of Week: {{ result.day_of_week }}</p>
+                                <p>Start Time: {{ result.start_time }}</p>
+                                <p>End Time: {{ result.end_time }}</p>
+                            </div>
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <p>---------------------------------------------------------------------------------------------------------------------------</p>
+        <ul class="doctor-list">
+            {% for doctor in doctors %}
+                <li class="doctor-item">
+                    <a href="{% url 'doctor_detail' doctor.pk %}" class="doctor-link">
+                        <div class="doctor-info">
+                            <h3>{{ doctor.name }}</h3>
+                            <p>Specialization: {{ doctor.specialization }}</p>
+                            <p>Day of Week: {{ doctor.day_of_week }}</p>
+                            <p>Start Time: {{ doctor.start_time }}</p>
+                            <p>End Time: {{ doctor.end_time }}</p>
+                            <p>Price: {{ doctor.fee }}</p>
+                        </div>
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

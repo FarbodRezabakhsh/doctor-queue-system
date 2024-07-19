@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="appointment-form-container">
+        <h2>Book an Appointment with Dr. {{ doctor.name }}</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+
+            {% if form.non_field_errors %}
+                <div class="alert alert-danger">
+                    <ul>
+                        {% for error in form.non_field_errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+
+            {% if form.errors.time %}
+                <div class="alert alert-danger">{{ form.errors.time }}</div>
+            {% endif %}
+
+            {% if next_appointment_day %}
+                <h3>Available Appointment Times on {{ next_appointment_day }}:</h3>
+                {% if available_times %}
+                    <label>
+                        <select id="available-times" required>
+                            <option value="">Select a time</option>
+                            {% for time in available_times %}
+                                <option value="{{ time }}">{{ time }}</option>
+                            {% endfor %}
+                        </select>
+                    </label>
+                {% else %}
+                    <p>No available times on {{ next_appointment_day }}.</p>
+                {% endif %}
+            {% else %}
+                <p>No available appointment days in the next 15 days. Please check back later.</p>
+            {% endif %}
+
+            <input type="hidden" name="time" id="selected-time">
+            <button type="submit" class="btn btn-primary">Book Appointment</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('available-times').addEventListener('change', function() {
+            document.getElementById('selected-time').value = this.value;
+        });
+    </script>
+{% endblock %}

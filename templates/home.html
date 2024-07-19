@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="jumbotron text-center">
+        <h1 class="display-4 welcome-title">Welcome to Online Doctor Appointment System</h1>
+        <p class="lead welcome-lead">Book your appointments with the best doctors in your area.</p>
+        <hr class="my-4 welcome-hr">
+        <p class="welcome-text">Start by searching for a doctor or booking an appointment.</p>
+        <a class="btn btn-primary btn-lg welcome-btn" href="{% url 'doctor_list' %}" role="button">Find Doctors</a>
+    </div>
+{% endblock %}

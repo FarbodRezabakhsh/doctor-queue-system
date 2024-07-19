@@ -1,0 +1,105 @@
+/* signup.css */
+
+/* تنظیمات کلی */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f7f7f7;
+    color: #333;
+}
+
+/* تنظیمات فرم ثبت‌نام */
+.signup-container {
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    max-width: 600px;
+    margin: 2rem auto;
+}
+
+.signup-heading {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #0074d9;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.signup-form .form-group {
+    margin-bottom: 15px;
+}
+
+.signup-form .form-control {
+    border-radius: 5px;
+    box-shadow: none;
+    transition: border-color 0.3s;
+}
+
+.signup-form .form-control:focus {
+    border-color: #0074d9;
+}
+
+.signup-form .btn {
+    border-radius: 5px;
+    padding: 10px 20px;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.signup-form .btn-primary {
+    background-color: #0074d9;
+    border-color: #0074d9;
+}
+
+.signup-form .btn-primary:hover {
+    background-color: #005bb5;
+    border-color: #005bb5;
+}
+
+/* حذف موارد اضافی و استایل خطاها */
+.signup-form .errorlist {
+    color: #ff0000;
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+    list-style-type: none;
+    padding: 0;
+}
+
+.signup-form .errorlist li {
+    margin-bottom: 5px;
+}
+
+.signup-form .non-field-errors {
+    color: #ff0000;
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+}
+
+/* حذف پیام‌های اضافی */
+.signup-form .helptext {
+    display: none;
+}
+
+/* استایل سفارشی برای فیلدهای فرم */
+.signup-form input[type="text"],
+.signup-form input[type="email"],
+.signup-form input[type="password"],
+.signup-form textarea {
+    width: 100%;
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    font-size: 1rem;
+    color: #333;
+}
+
+.signup-form label {
+    font-size: 1.2rem;
+    margin-top: 1rem;
+    color: #555;
+}
+
+.signup-form textarea {
+    height: 100px;
+    resize: vertical;
+}

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="doctor-detail-container">
+        <h2 class="doctor-name">{{ doctor.name }}</h2>
+        <p class="doctor-info"><strong>Specialization:</strong> {{ doctor.specialization }}</p>
+        <p class="doctor-info"><strong>Day of Week:</strong> {{ doctor.day_of_week }}</p>
+        <p class="doctor-info"><strong>Start Time:</strong> {{ doctor.start_time }}</p>
+        <p class="doctor-info"><strong>End Time:</strong> {{ doctor.end_time }}</p>
+        <p class="doctor-info"><strong>Price:</strong> {{ doctor.fee }}</p>
+
+        <h3>Booked Appointments:</h3>
+        {% if appointments %}
+            <ul>
+                {% for appointment in appointments %}
+                    <li>{{ appointment.date }} at {{ appointment.time }} - {{ appointment.patient.username }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No booked appointments.</p>
+        {% endif %}
+
+        <h3>Feedback for this physician:</h3>
+        {% if doctor_feedback %}
+            <ul>
+                {% for feedback in doctor_feedback %}
+                    <li><strong>Rating:</strong> {{ feedback.rating }} <br> <strong>Comment:</strong> {{ feedback.comment }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No feedback available.</p>
+        {% endif %}
+
+        <a class="btn btn-primary" href="{% url 'book_appointment' doctor.id %}">Book Appointment</a>
+        <a class="btn btn-primary" href="{% url 'give_feedback' doctor.id %}">Submit Feedback</a>
+    </div>
+{% endblock %}
